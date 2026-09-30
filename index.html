@@ -455,8 +455,150 @@
       .scope-grid { grid-template-columns: 1fr; }
     }
   </style>
+  <style>
+    /* ── LOGIN OVERLAY ── */
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #login-overlay.hidden { display: none; }
+
+    .login-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 16px;
+      padding: 2.5rem 2.75rem;
+      width: 100%;
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 2rem;
+    }
+    .login-logo-itau {
+      background: var(--orange);
+      color: white;
+      font-weight: 800;
+      font-size: 20px;
+      padding: 6px 14px;
+      border-radius: 7px;
+      letter-spacing: -0.5px;
+    }
+    .login-divider {
+      width: 1px;
+      height: 22px;
+      background: rgba(255,255,255,0.2);
+    }
+    .login-sf-pill {
+      background: white;
+      border-radius: 5px;
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #00A1E0;
+      letter-spacing: -0.3px;
+    }
+
+    .login-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.3rem;
+      text-align: center;
+    }
+    .login-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .login-field {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    .login-field label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 0.4rem;
+    }
+    .login-field input {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 7px;
+      padding: 0.7rem 1rem;
+      font-size: 0.88rem;
+      color: white;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .login-field input:focus { border-color: var(--orange); }
+    .login-field input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .login-error {
+      font-size: 0.75rem;
+      color: #FF6B6B;
+      text-align: center;
+      margin-bottom: 0.75rem;
+      min-height: 1.2em;
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-family: inherit;
+    }
+    .login-btn:hover { opacity: 0.88; }
+  </style>
 </head>
 <body>
+
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="login-brand">
+      <span class="login-logo-itau">itaú</span>
+      <div class="login-divider"></div>
+      <span class="login-sf-pill">salesforce</span>
+    </div>
+    <div class="login-title">Acesso restrito</div>
+    <div class="login-sub">Documento de trabalho — Minhas Vantagens N2 · 2026</div>
+    <div class="login-field">
+      <label for="login-user">Usuário</label>
+      <input type="text" id="login-user" placeholder="usuário" autocomplete="off">
+    </div>
+    <div class="login-field">
+      <label for="login-pass">Senha</label>
+      <input type="password" id="login-pass" placeholder="••••" autocomplete="off">
+    </div>
+    <div class="login-error" id="login-error"></div>
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+  </div>
+</div>
 
 <header>
   <div class="header-inner">
@@ -1100,6 +1242,19 @@
 </div>
 
 <script>
+  function doLogin() {
+    var user = document.getElementById('login-user').value.trim().toLowerCase();
+    var pass = document.getElementById('login-pass').value.trim();
+    if ((user === 'salesforce' || user === 'minhasvantagens') && pass === 'mv2026') {
+      document.getElementById('login-overlay').classList.add('hidden');
+    } else {
+      document.getElementById('login-error').textContent = 'Usuário ou senha incorretos.';
+    }
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+
   // Smooth scroll for nav links
   document.querySelectorAll('nav a').forEach(a => {
     a.addEventListener('click', e => {
