@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escopo do Piloto — Salesforce Minhas Vantagens N2</title>
+  <style>
+    :root {
+      --orange: #EC7000;
+      --orange-light: #FFF3E6;
+      --navy: #1B2B4B;
+      --navy-mid: #2D4270;
+      --blue-light: #EEF2FA;
+      --green: #2E7D32;
+      --green-light: #E8F5E9;
+      --red: #C62828;
+      --red-light: #FFEBEE;
+      --yellow: #F57F17;
+      --yellow-light: #FFFDE7;
+      --gray: #5C6473;
+      --gray-light: #F4F5F7;
+      --border: #E0E4ED;
+      --text: #1A1F2E;
+      --text-secondary: #5C6473;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F0F2F7;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--navy);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-itau {
+      background: var(--orange);
+      color: white;
+      font-weight: 800;
+      font-size: 18px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      letter-spacing: -0.5px;
+    }
+    .logo-sf {
+      background: white;
+      color: #00A1E0;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+    .header-title {
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+    .header-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .badge-orange { background: var(--orange); color: white; }
+    .badge-blue   { background: rgba(255,255,255,0.15); color: white; }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--navy-mid);
+      padding: 0 32px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    nav a {
+      display: inline-block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 10px 14px;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    nav a:hover { color: white; border-bottom-color: var(--orange); }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 32px; }
+
+    /* ── SECTION ── */
+    section {
+      background: white;
+      border-radius: 10px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+    .section-number {
+      background: var(--orange);
+      color: white;
+      font-weight: 700;
+      font-size: 13px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    h2 { font-size: 18px; font-weight: 700; color: var(--navy); }
+    h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin: 20px 0 12px; }
+
+    /* ── KPI CARDS ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+    .kpi-card.before { background: var(--red-light); border: 1px solid #FFCDD2; }
+    .kpi-card.after  { background: var(--green-light); border: 1px solid #C8E6C9; }
+    .kpi-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 6px; }
+    .kpi-before { font-size: 24px; font-weight: 800; color: var(--red); }
+    .kpi-after  { font-size: 24px; font-weight: 800; color: var(--green); }
+    .kpi-arrow { font-size: 18px; color: var(--gray); margin: 0 4px; }
+    .kpi-compare {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; margin: 12px 0; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--navy);
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--gray-light); }
+
+    /* type badges */
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .tag-native  { background: var(--green-light);  color: var(--green); }
+    .tag-config  { background: var(--blue-light);   color: var(--navy-mid); }
+    .tag-dev     { background: var(--orange-light);  color: var(--orange); }
+    .tag-integ   { background: #F3E5F5;              color: #6A1B9A; }
+    .tag-pending { background: var(--red-light);     color: var(--red); }
+    .tag-confirm { background: var(--yellow-light);  color: var(--yellow); }
+    .tag-done    { background: var(--green-light);   color: var(--green); }
+
+    /* ── SCOPE GRID ── */
+    .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .scope-grid { grid-template-columns: 1fr; } }
+    .scope-card {
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .scope-in  { border: 2px solid #C8E6C9; background: var(--green-light); }
+    .scope-out { border: 2px solid #FFCDD2; background: var(--red-light); }
+    .scope-card h3 { margin-top: 0; }
+    .scope-card ul { padding-left: 18px; }
+    .scope-card li { margin-bottom: 6px; font-size: 13px; }
+    .scope-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .scope-in  .scope-label { color: var(--green); }
+    .scope-out .scope-label { color: var(--red); }
+
+    /* ── LAYER BLOCKS ── */
+    .layer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .layer-card {
+      border-radius: 8px;
+      padding: 18px;
+      border-left: 4px solid;
+    }
+    .layer-native { background: var(--green-light);  border-color: var(--green); }
+    .layer-config { background: var(--blue-light);   border-color: var(--navy-mid); }
+    .layer-dev    { background: var(--orange-light);  border-color: var(--orange); }
+    .layer-integ  { background: #F3E5F5;              border-color: #6A1B9A; }
+    .layer-card h3 { margin-top: 0; margin-bottom: 8px; font-size: 13px; }
+    .layer-card ul { padding-left: 16px; font-size: 12px; line-height: 1.8; }
+
+    /* ── CODE BLOCK ── */
+    pre {
+      background: #1E2235;
+      color: #CDD5EE;
+      border-radius: 8px;
+      padding: 20px;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    }
+    .code-green  { color: #69FF82; }
+    .code-orange { color: #FFBC51; }
+    .code-purple { color: #C792EA; }
+    .code-blue   { color: #80BFFF; }
+    .code-gray   { color: #8892A4; }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -27px;
+      top: 12px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--border);
+    }
+    .phase-0 .timeline-dot { background: var(--red); box-shadow: 0 0 0 2px var(--red); }
+    .phase-1 .timeline-dot { background: var(--orange); box-shadow: 0 0 0 2px var(--orange); }
+    .phase-2 .timeline-dot { background: #7B1FA2; box-shadow: 0 0 0 2px #7B1FA2; }
+    .phase-3 .timeline-dot { background: var(--navy-mid); box-shadow: 0 0 0 2px var(--navy-mid); }
+    .phase-4 .timeline-dot { background: #00838F; box-shadow: 0 0 0 2px #00838F; }
+    .phase-5 .timeline-dot { background: var(--green); box-shadow: 0 0 0 2px var(--green); }
+    .phase-6 .timeline-dot { background: #2E7D32; box-shadow: 0 0 0 2px #2E7D32; }
+
+    .timeline-card {
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+    }
+    .timeline-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .timeline-card-title { font-weight: 700; font-size: 13px; color: var(--navy); }
+    .timeline-duration {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--orange);
+      background: var(--orange-light);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .timeline-deliverable { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+    .timeline-total {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: var(--navy);
+      color: white;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* ── RISKS ── */
+    .risk-high   td:first-child { border-left: 3px solid var(--red); }
+    .risk-medium td:first-child { border-left: 3px solid var(--yellow); }
+    .risk-low    td:first-child { border-left: 3px solid var(--green); }
+
+    /* ── DECISION BOX ── */
+    .decision-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .decision-card {
+      border-radius: 8px;
+      padding: 18px;
+      background: var(--orange-light);
+      border: 1px solid #FFD4A8;
+    }
+    .decision-num {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+    .decision-card p { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .callout-info    { background: var(--blue-light);   border-left: 4px solid var(--navy-mid); }
+    .callout-warning { background: var(--yellow-light);  border-left: 4px solid var(--yellow); }
+    .callout-success { background: var(--green-light);  border-left: 4px solid var(--green); }
+    .callout-icon { font-size: 18px; margin-top: 1px; }
+    .callout-text { font-size: 13px; }
+    .callout-text strong { display: block; margin-bottom: 2px; }
+
+    /* ── JOURNEY FLOW ── */
+    .journey-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+    .flow-step {
+      background: var(--navy);
+      color: white;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      text-align: center;
+      min-width: 110px;
+    }
+    .flow-step:first-child { border-radius: 8px 0 0 8px; }
+    .flow-arrow {
+      color: var(--orange);
+      font-size: 18px;
+      font-weight: 900;
+      flex-shrink: 0;
+      padding: 0 2px;
+    }
+    .flow-step-orange {
+      background: var(--orange);
+      color: white;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+      text-align: center;
+      min-width: 110px;
+    }
+    .flow-end {
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ── FEATURE LIST ── */
+    .feature-list { display: flex; flex-direction: column; gap: 10px; }
+    .feature-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      background: var(--gray-light);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .feature-num {
+      background: var(--orange);
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+      min-width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .feature-title { font-weight: 700; font-size: 13px; color: var(--navy); }
+    .feature-desc  { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* ── SF vs ITAU ── */
+    .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .split-grid { grid-template-columns: 1fr; } }
+    .split-card {
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .split-sf   { background: #E3F2FD; border: 1px solid #90CAF9; }
+    .split-itau { background: var(--orange-light); border: 1px solid #FFCC80; }
+    .split-card h3 { margin-top: 0; margin-bottom: 12px; }
+    .split-card ul { padding-left: 18px; font-size: 13px; line-height: 2; }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .page { padding: 16px; }
+      section { padding: 20px; }
+      .header-inner { padding: 12px 16px; }
+      .scope-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <span class="logo-itau">itaú</span>
+      <span class="logo-sf">salesforce</span>
+      <span class="header-title">Escopo do Piloto — Minhas Vantagens N2</span>
+    </div>
+    <div class="header-meta">
+      <span class="badge badge-blue">Setembro 2026</span>
+      <span class="badge badge-orange">v1.0</span>
+    </div>
+  </div>
+  <nav>
+    <a href="#objetivo">1. Objetivo</a>
+    <a href="#contexto">2. Contexto</a>
+    <a href="#escopo">3. Escopo</a>
+    <a href="#solucao">4. Solução SF</a>
+    <a href="#dados">5. Dados</a>
+    <a href="#perfis">6. Perfis</a>
+    <a href="#metricas">7. Métricas</a>
+    <a href="#prereqs">8. Pré-requisitos</a>
+    <a href="#responsabilidades">9. SF vs Itaú</a>
+    <a href="#timeline">10. Cronograma</a>
+    <a href="#riscos">11. Riscos</a>
+    <a href="#decisoes">12. Decisões</a>
+  </nav>
+</header>
+
+<div class="page">
+
+  <!-- ── 1. OBJETIVO ── -->
+  <section id="objetivo">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <h2>Objetivo do Piloto</h2>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">🎯</span>
+      <div class="callout-text">
+        <strong>Proposta central</strong>
+        Validar, com um grupo reduzido do N2, que a jornada de atendimento completa — da recepção do caso à concessão e comunicação — pode ser conduzida integralmente no Salesforce, sem alternância entre sistemas.
+      </div>
+    </div>
+    <div class="kpi-grid" style="margin-top:20px">
+      <div class="kpi-card before">
+        <div class="kpi-label">Autonomia hoje</div>
+        <div class="kpi-before">~20%</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:4px">casos resolvidos sem consulta externa</div>
+      </div>
+      <div class="kpi-card after">
+        <div class="kpi-label">Meta do piloto</div>
+        <div class="kpi-after">&gt;60%</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:4px">casos resolvidos sem consulta externa</div>
+      </div>
+      <div class="kpi-card before">
+        <div class="kpi-label">Rechamada atual</div>
+        <div class="kpi-before">6,7%</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:4px">clientes ligam novamente</div>
+      </div>
+      <div class="kpi-card after">
+        <div class="kpi-label">Meta rechamada</div>
+        <div class="kpi-after">&lt;4%</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:4px">com comunicação padronizada</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. CONTEXTO ── -->
+  <section id="contexto">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2>Contexto e Justificativa</h2>
+    </div>
+    <p style="margin-bottom:16px;color:var(--text-secondary)">O atendimento N2 do MV opera hoje com 9 sistemas sem integração. Os operadores fazem alt-tab para resolver um único caso.</p>
+
+    <h3>Dores atuais</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dor atual</th><th>Impacto</th></tr></thead>
+        <tbody>
+          <tr><td>Salesforce genérico (reuso de Contas) — sem dados MV</td><td>Operador não tem contexto para decidir</td></tr>
+          <tr><td>Dados de passos e benefícios só por query AWS (acesso interno)</td><td>Terceirizado não consegue concluir a análise</td></tr>
+          <tr><td>PeC depende de Power App + SharePoint + aprovação manual</td><td>Processo fragmentado, sem rastreabilidade</td></tr>
+          <tr><td>Sem comunicação padronizada ao cliente</td><td>6,7% de rechamada; cliente não sabe o status</td></tr>
+          <tr><td>INC aberto manualmente fora do SF</td><td>Sem vínculo entre o caso e o incidente técnico</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Resultados esperados (TO BE)</h3>
+    <div class="kpi-grid" style="margin-top:12px">
+      <div class="kpi-card after">
+        <div class="kpi-label">SLA no prazo</div>
+        <div class="kpi-compare">
+          <span class="kpi-before" style="font-size:18px">76%</span>
+          <span class="kpi-arrow">→</span>
+          <span class="kpi-after">86%+</span>
+        </div>
+      </div>
+      <div class="kpi-card after">
+        <div class="kpi-label">Rechamada</div>
+        <div class="kpi-compare">
+          <span class="kpi-before" style="font-size:18px">6,7%</span>
+          <span class="kpi-arrow">→</span>
+          <span class="kpi-after">&lt;5%</span>
+        </div>
+      </div>
+      <div class="kpi-card after">
+        <div class="kpi-label">Jornadas terceirizáveis</div>
+        <div class="kpi-compare">
+          <span class="kpi-before" style="font-size:18px">40%</span>
+          <span class="kpi-arrow">→</span>
+          <span class="kpi-after">100%</span>
+        </div>
+      </div>
+      <div class="kpi-card after">
+        <div class="kpi-label">Sistemas por atendimento</div>
+        <div class="kpi-compare">
+          <span class="kpi-before" style="font-size:18px">9</span>
+          <span class="kpi-arrow">→</span>
+          <span class="kpi-after">1</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. ESCOPO ── -->
+  <section id="escopo">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2>Escopo do Piloto</h2>
+    </div>
+
+    <h3>3.1 Jornada pilotada</h3>
+    <div class="callout callout-warning">
+      <span class="callout-icon">🎯</span>
+      <div class="callout-text">
+        <strong>Passos não contabilizados — Cartão de Crédito</strong>
+        Representa ~72% do volume N2. É a jornada com fluxo mais completo mapeado e mockup validado no visioning deck.
+      </div>
+    </div>
+    <div class="scope-grid" style="margin-top:16px">
+      <div style="background:var(--blue-light);border:1px solid #BBDEFB;border-radius:8px;padding:16px">
+        <div style="font-weight:700;color:var(--navy);margin-bottom:10px;font-size:13px">Caso A — Passo em prazo de processamento</div>
+        <div class="journey-flow">
+          <div class="flow-step">Operador abre caso</div>
+          <span class="flow-arrow">›</span>
+          <div class="flow-step">KP5 identifica passo em proc.</div>
+          <span class="flow-arrow">›</span>
+          <div class="flow-step-orange flow-end">Orienta e fecha</div>
+        </div>
+      </div>
+      <div style="background:var(--blue-light);border:1px solid #BBDEFB;border-radius:8px;padding:16px">
+        <div style="font-weight:700;color:var(--navy);margin-bottom:10px;font-size:13px">Caso B — Passo ausente + exceção (PeC)</div>
+        <div class="journey-flow">
+          <div class="flow-step">GU3 confirma elegibilidade</div>
+          <span class="flow-arrow">›</span>
+          <div class="flow-step">Pré-Inc: prazo encerrado</div>
+          <span class="flow-arrow">›</span>
+          <div class="flow-step-orange">Solicita PeC</div>
+          <span class="flow-arrow">›</span>
+          <div class="flow-step flow-end">Banco executa</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">3.2 Usuários do Piloto</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Perfil</th><th>Time</th><th>Quantidade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Operador N2</strong></td><td>GAC Clientes (N2 terceirizado — Salvador/João Pessoa)</td><td>10–15 analistas</td></tr>
+          <tr><td><strong>Supervisor</strong></td><td>Equipe de supervisão MV</td><td>1–2</td></tr>
+          <tr><td><strong>Aprovador (alçada PeC)</strong></td><td>Time interno MV (Coordenador/Gerente)</td><td>1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:24px">3.3 Funcionalidades no escopo</h3>
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="feature-num">1</div>
+        <div>
+          <div class="feature-title">Console de Atendimento — Lista de Casos MV</div>
+          <div class="feature-desc">Fila acionável com prazo, status, recontato e responsável visíveis. Sem recomeçar do zero.</div>
+        </div>
+        <span class="tag tag-native" style="flex-shrink:0">Nativo</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">2</div>
+        <div>
+          <div class="feature-title">Diagnóstico MV no caso (LWC)</div>
+          <div class="feature-desc">Produto elegível, passo localizado/não localizado, prazo de contabilização, histórico de PeC — todos com origem e data.</div>
+        </div>
+        <span class="tag tag-dev" style="flex-shrink:0">Desenvolvimento</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">3</div>
+        <div>
+          <div class="feature-title">Service Assistant (Agentforce)</div>
+          <div class="feature-desc">Plano de atendimento guiado, artigo KB sugerido, rascunho de encerramento assistido por IA.</div>
+        </div>
+        <span class="tag tag-config" style="flex-shrink:0">Config + IA</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">4</div>
+        <div>
+          <div class="feature-title">Solicitar PeC (Quick Action + Screen Flow + Aprovação)</div>
+          <div class="feature-desc">Fluxo completo: contexto → evidências → revisão → alçada → execução no banco. Substitui Power App e SharePoint.</div>
+        </div>
+        <span class="tag tag-config" style="flex-shrink:0">Config</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">5</div>
+        <div>
+          <div class="feature-title">Acompanhamento do pedido (LWC)</div>
+          <div class="feature-desc">Tracker visual: Solicitado → Aprovado → Banco confirmou → BP4 atualizado → Caso fechado, com protocolos.</div>
+        </div>
+        <span class="tag tag-dev" style="flex-shrink:0">Desenvolvimento</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">6</div>
+        <div>
+          <div class="feature-title">Comunicação ao cliente</div>
+          <div class="feature-desc">Registro de envio de e-mail corporativo vinculado ao caso com estado (Solicitada/Entregue).</div>
+        </div>
+        <span class="tag tag-integ" style="flex-shrink:0">Config + Integ.</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">7</div>
+        <div>
+          <div class="feature-title">Knowledge Base MV</div>
+          <div class="feature-desc">Artigos por macro-assunto para o Service Assistant consultar e citar nas orientações.</div>
+        </div>
+        <span class="tag tag-config" style="flex-shrink:0">Config</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">3.4 Fora do escopo — deferido para rollout</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Item</th><th>Motivo do diferimento</th></tr></thead>
+        <tbody>
+          <tr><td>Triagem automática D+1 (Cora → KP5 → Pré-Inc)</td><td>Depende da CORA Analyzer ainda em desenvolvimento</td></tr>
+          <tr><td>Agentforce Coworker (supervisor)</td><td>Disponibilidade de licença e validação IARA a confirmar</td></tr>
+          <tr><td>Jornada Benefícios não bancários (XS4/vouchers)</td><td>Segunda prioridade; requer endpoints Digibee adicionais</td></tr>
+          <tr><td>Jornada Bancário (regras de segmento, cobranças)</td><td>Terceira prioridade</td></tr>
+          <tr><td>Omni-Channel com roteamento parametrizável completo</td><td>Simplificado no piloto (fila manual)</td></tr>
+          <tr><td>Comunicação SMS e push SuperApp (Tron)</td><td>Fase futura</td></tr>
+          <tr><td>Incidente MV automatizado (Monitoria Pré-Inc)</td><td>Depende do mapeamento completo de regras pelo DataOps</td></tr>
+          <tr><td>Dashboard operacional tempo real</td><td>Pós-piloto, após validação do modelo de dados</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 4. SOLUÇÃO SF ── -->
+  <section id="solucao">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2>Como o Salesforce atende cada necessidade</h2>
+    </div>
+
+    <h3>4.1 Avaliação por componente</h3>
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+      <span class="tag tag-native">Nativo</span>
+      <span class="tag tag-config">Config declarativa</span>
+      <span class="tag tag-dev">Desenvolvimento (LWC/Apex)</span>
+      <span class="tag tag-integ">Config + Integração</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Necessidade</th><th>Solução Salesforce</th><th>Tipo</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td>Fila de casos com prazo e prioridade</td><td>Service Console + List View</td><td><span class="tag tag-native">Nativo</span></td><td>Campos de prazo, recontato e prioridade no objeto Case</td></tr>
+          <tr><td>Visão MV do cliente no caso</td><td>LWC "Diagnóstico MV"</td><td><span class="tag tag-dev">Dev</span></td><td>Consome GU3, KP5, Pré-Inc via Digibee</td></tr>
+          <tr><td>Orientação guiada ao operador</td><td>Service Assistant (Agentforce)</td><td><span class="tag tag-config">Config + KB</span></td><td>Plano de atendimento definido como tópico do Agent</td></tr>
+          <tr><td>Rascunho de encerramento com IA</td><td>Agentforce — resumo assistido</td><td><span class="tag tag-config">Config</span></td><td>Agent gera; operador revisa antes de aplicar ao caso</td></tr>
+          <tr><td>Solicitar Passo em Confiança</td><td>Quick Action + Screen Flow (3 telas)</td><td><span class="tag tag-native">Nativo + config</span></td><td>Flow pré-preenche dados do caso. Cria registro PEC-XXXXX</td></tr>
+          <tr><td>Aprovação de PeC pelo supervisor</td><td>Approval Process nativo</td><td><span class="tag tag-native">Nativo + config</span></td><td>Registro bloqueado durante aprovação. Histórico rastreável</td></tr>
+          <tr><td>Execução do passo após aprovação</td><td>Apex callout → Digibee → Mecânica de Passos</td><td><span class="tag tag-integ">Config + integ.</span></td><td>Banco executa; SF registra a confirmação</td></tr>
+          <tr><td>Atualização do protocolo BP4</td><td>Digibee event → SF Platform Event</td><td><span class="tag tag-integ">Config + integ.</span></td><td>BP4 confirma protocolo; SF recebe e grava no caso</td></tr>
+          <tr><td>Tracker de acompanhamento do PeC</td><td>LWC "Acompanhamento do pedido"</td><td><span class="tag tag-dev">Dev</span></td><td>Timeline visual com timestamps e protocolos</td></tr>
+          <tr><td>Comunicação ao cliente</td><td>E-mail via canal corporativo + registro COM-</td><td><span class="tag tag-integ">Config + integ.</span></td><td>Template por macro-assunto. Estado Solicitada/Entregue</td></tr>
+          <tr><td>Histórico completo do caso</td><td>Case Feed + registros relacionados</td><td><span class="tag tag-native">Nativo</span></td><td>Tudo ligado ao mesmo Case. Sem reconstrução de contexto</td></tr>
+          <tr><td>Vínculo com incidente (INC manual)</td><td>Objeto Incidente MV + rel. ServiceNow</td><td><span class="tag tag-config">Config</span></td><td>Status do ServiceNow sincroniza via Digibee</td></tr>
+          <tr><td>Gestão de alçadas e exceções</td><td>Permissões por perfil + Approval Process</td><td><span class="tag tag-native">Nativo + config</span></td><td>Perfil Supervisor tem botão PeC; Coord. aprova</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:28px">4.2 Camadas de implementação</h3>
+    <div class="layer-grid">
+      <div class="layer-card layer-native">
+        <h3 style="color:var(--green)">🟢 Nativo — Zero código</h3>
+        <ul>
+          <li>Case, Case Feed, List View, Tabs do Console</li>
+          <li>Approval Process (PeC)</li>
+          <li>Email Templates</li>
+          <li>Relacionamentos: Case ↔ PEC ↔ COM ↔ INC</li>
+        </ul>
+      </div>
+      <div class="layer-card layer-config">
+        <h3 style="color:var(--navy-mid)">🔵 Config declarativa</h3>
+        <ul>
+          <li>Screen Flow "Solicitar PeC" (3 telas)</li>
+          <li>Service Assistant — tópico + plano + artigos KB</li>
+          <li>Omni-Channel (simplificado no piloto)</li>
+          <li>Perfis e Permission Sets (N2, Supervisor, Aprovador)</li>
+          <li>Named Credentials para Digibee</li>
+        </ul>
+      </div>
+      <div class="layer-card layer-dev">
+        <h3 style="color:var(--orange)">🟠 Desenvolvimento (LWC + Apex)</h3>
+        <ul>
+          <li>LWC "Diagnóstico MV" — GU3, KP5, Pré-Inc</li>
+          <li>LWC "Acompanhamento do pedido" — tracker PeC</li>
+          <li>Apex callouts Digibee (Mecânica de Passos, BP4)</li>
+        </ul>
+      </div>
+      <div class="layer-card layer-integ">
+        <h3 style="color:#6A1B9A">🟣 Integrações Digibee</h3>
+        <ul>
+          <li>GET /gU3/elegibilidade/{idQ3}/{produto}</li>
+          <li>GET /kp5/passos/{idQ3}/{competencia}</li>
+          <li>GET /preInc/comportamento/{idQ3}/{produto}</li>
+          <li>GET /historicoPeC/{idQ3}</li>
+          <li>POST /mecanicaDePassos/conceder</li>
+          <li>EVENT bp4.protocolo → Platform Event SF</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. DADOS ── -->
+  <section id="dados">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2>Modelo de Dados — Objetos do Piloto</h2>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">🔑</span>
+      <div class="callout-text">
+        <strong>Chave de integração: <code>ID_Q3__c</code></strong>
+        Campo custom no objeto Case que conecta o registro SF a todos os sistemas de origem (KP5, GU3, 360i, XS4). Deve ser enviado no payload de criação do caso pelo orquestrador BP4.
+      </div>
+    </div>
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>Objeto</th><th>Tipo</th><th>Finalidade</th></tr></thead>
+        <tbody>
+          <tr><td><code>Case</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Ocorrência principal. Campo custom: <code>ID_Q3__c</code></td></tr>
+          <tr><td><code>Solicitacao_PeC__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro do pedido de Passo em Confiança (PEC-XXXXX)</td></tr>
+          <tr><td><code>Acompanhamento__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Follow-up criado pelo supervisor (AC-MV-XXXX)</td></tr>
+          <tr><td><code>Comunicacao_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro de envio ao cliente (COM-XXXXX)</td></tr>
+          <tr><td><code>Incidente_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Vínculo com incidente ServiceNow</td></tr>
+          <tr><td><code>Knowledge</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Artigos por macro-assunto para o Service Assistant</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 6. PERFIS ── -->
+  <section id="perfis">
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <h2>Perfis e Acessos no Piloto</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Perfil</th><th>Acesso</th><th>Ações disponíveis</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Operador N2</strong></td>
+            <td>Lista de casos MV, registro do caso, aba Diagnóstico MV, Service Assistant</td>
+            <td>Editar caso, Solicitar PeC, fechar caso, preparar retorno ao cliente</td>
+          </tr>
+          <tr>
+            <td><strong>Supervisor</strong></td>
+            <td>Tudo do Operador + visão de fila do time</td>
+            <td>Aprovar/rejeitar PeC, criar Acompanhamento</td>
+          </tr>
+          <tr>
+            <td><strong>Aprovador (Coord.)</strong></td>
+            <td>Registro Solicitação PeC</td>
+            <td>Aprovar ou rejeitar com comentário registrado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 7. MÉTRICAS ── -->
+  <section id="metricas">
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <h2>Métricas de Sucesso do Piloto</h2>
+    </div>
+    <h3>Métricas operacionais (primeiras 4 semanas do piloto)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Métrica</th><th>Baseline atual</th><th>Meta do piloto</th></tr></thead>
+        <tbody>
+          <tr><td>% casos resolvidos sem consulta externa</td><td>~20% (estimado)</td><td><strong style="color:var(--green)">&gt; 60%</strong></td></tr>
+          <tr><td>Tempo médio de análise por caso</td><td>A levantar no kick-off</td><td><strong style="color:var(--green)">Redução de 30%+</strong></td></tr>
+          <tr><td>% casos com PeC concluída sem repasse ao N3</td><td>A levantar</td><td><strong style="color:var(--green)">&gt; 80%</strong></td></tr>
+          <tr><td>Rechamada da jornada pilotada</td><td>6,7% (geral)</td><td><strong style="color:var(--green)">&lt; 4%</strong></td></tr>
+          <tr><td>SLA dentro do prazo</td><td>76%</td><td><strong style="color:var(--green)">&gt; 82%</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 style="margin-top:20px">Métricas de qualidade da plataforma</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Métrica</th><th>Critério de aceitação</th></tr></thead>
+        <tbody>
+          <tr><td>Disponibilidade das integrações (KP5, GU3, Pré-Inc)</td><td>≥ 95% das consultas respondidas em &lt; 3s</td></tr>
+          <tr><td>Aprovação de PeC completada no SF</td><td>100% sem uso de Power App ou SharePoint</td></tr>
+          <tr><td>Rastreabilidade</td><td>Todo caso fechado com motivo, evidência e responsável registrados</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 8. PRÉ-REQUISITOS ── -->
+  <section id="prereqs">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <h2>Pré-requisitos e Dependências Críticas</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dependência</th><th>Responsável</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Estratégia de org (<code>00DHZ0000089DOG2A2</code>): estender Cartões ou criar org dedicada MV</td><td>Comunidade Salesforce Itaú</td><td><span class="tag tag-pending">⚠️ Decisão urgente</span></td></tr>
+          <tr><td>Licenças Agentforce Service Agent para N2</td><td>Salesforce / Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
+          <tr><td>Aprovação IARA para Service Assistant com dados transacionais</td><td>Time de IA do Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
+          <tr><td>Endpoints Digibee: GU3, KP5, Pré-Inc, Mecânica de Passos, BP4</td><td>Tecnologia MV / Digibee</td><td><span class="tag tag-confirm">A mapear</span></td></tr>
+          <tr><td>Chave ID Q3 disponível no payload do caso (orquestrador BP4)</td><td>Tecnologia N1 / BP4</td><td><span class="tag tag-confirm">A validar</span></td></tr>
+          <tr><td>Árvore de assuntos e documentação da CORA</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-done">Prometido na reunião</span></td></tr>
+          <tr><td>Playbooks e roteiros por macro-assunto (base do Knowledge)</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
+          <tr><td>Critérios de elegibilidade para PeC no piloto</td><td>Vinícius + Coordenação MV</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 9. SF vs ITAU ── -->
+  <section id="responsabilidades">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <h2>Salesforce entrega vs. Itaú precisa prover</h2>
+    </div>
+    <div class="split-grid">
+      <div class="split-card split-sf">
+        <h3 style="color:#1565C0">🔵 Salesforce entrega</h3>
+        <ul>
+          <li>Infraestrutura completa de Case Management (Console, List View, Feed, Relacionamentos)</li>
+          <li>Motor de aprovação (Approval Process) com histórico rastreável</li>
+          <li>Framework de IA (Agentforce) para Service Assistant</li>
+          <li>Knowledge Base com busca semântica para o Agent</li>
+          <li>Screen Flow para o wizard de PeC</li>
+          <li>Email Templates e registro de comunicação</li>
+        </ul>
+      </div>
+      <div class="split-card split-itau">
+        <h3 style="color:var(--orange)">🟠 Itaú precisa prover</h3>
+        <div class="table-wrap" style="margin:0">
+          <table style="margin:0">
+            <thead><tr><th style="background:var(--orange)">Item</th><th style="background:var(--orange)">Quem</th></tr></thead>
+            <tbody>
+              <tr><td>Endpoints Digibee por sistema de origem</td><td>Tecnologia / Digibee</td></tr>
+              <tr><td>ID Q3 no payload de criação do caso</td><td>N1 / BP4 / Orquestrador</td></tr>
+              <tr><td>Conteúdo dos artigos Knowledge (playbooks)</td><td>Operações MV (Vinícius)</td></tr>
+              <tr><td>Critérios de elegibilidade para PeC</td><td>Operações MV + Coord.</td></tr>
+              <tr><td>Aprovação IARA para dados transacionais no Agent</td><td>Time de IA do Itaú</td></tr>
+              <tr><td>Ambiente de homologação (KP5, GU3, etc.)</td><td>Tecnologia MV</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 10. TIMELINE ── -->
+  <section id="timeline">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <h2>Cronograma Sugerido</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item phase-0">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 0 — Alinhamento e pré-requisitos</span>
+            <span class="timeline-duration">2 semanas</span>
+          </div>
+          <div class="timeline-deliverable">Decisão de org · confirmação de licenças · mapeamento de endpoints Digibee · documentação do Vinícius</div>
+        </div>
+      </div>
+      <div class="timeline-item phase-1">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 1 — Configuração base</span>
+            <span class="timeline-duration">2 semanas</span>
+          </div>
+          <div class="timeline-deliverable">Console layout · List View · perfis · campos Case (ID Q3) · Named Credentials Digibee</div>
+        </div>
+      </div>
+      <div class="timeline-item phase-2">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 2 — LWCs e integrações</span>
+            <span class="timeline-duration">3 semanas</span>
+          </div>
+          <div class="timeline-deliverable">LWC Diagnóstico MV (GU3 + KP5 + Pré-Inc) · LWC Acompanhamento · Apex callouts Digibee</div>
+        </div>
+      </div>
+      <div class="timeline-item phase-3">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 3 — Fluxo PeC</span>
+            <span class="timeline-duration">2 semanas</span>
+          </div>
+          <div class="timeline-deliverable">Screen Flow (3 telas) · Approval Process · execução via Mecânica de Passos · protocolo BP4</div>
+        </div>
+      </div>
+      <div class="timeline-item phase-4">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 4 — Service Assistant</span>
+            <span class="timeline-duration">2 semanas</span>
+          </div>
+          <div class="timeline-deliverable">Artigos Knowledge criados · tópico do Agent configurado · rascunho de encerramento validado</div>
+        </div>
+      </div>
+      <div class="timeline-item phase-5">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 5 — Piloto com usuários</span>
+            <span class="timeline-duration">4 semanas</span>
+          </div>
+          <div class="timeline-deliverable">10–15 operadores + 1 supervisor usando em produção na jornada de passos de cartão</div>
+        </div>
+      </div>
+      <div class="timeline-item phase-6">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <span class="timeline-card-title">Fase 6 — Avaliação e decisão de rollout</span>
+            <span class="timeline-duration">1 semana</span>
+          </div>
+          <div class="timeline-deliverable">Relatório de métricas · ajustes · go/no-go para expansão a outras jornadas</div>
+        </div>
+      </div>
+      <div class="timeline-total">⏱ Total estimado: ~16 semanas da decisão de org até o fim do piloto</div>
+    </div>
+  </section>
+
+  <!-- ── 11. RISCOS ── -->
+  <section id="riscos">
+    <div class="section-header">
+      <div class="section-number">11</div>
+      <h2>Riscos e Premissas</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Risco</th><th>Probabilidade</th><th>Mitigação</th></tr></thead>
+        <tbody>
+          <tr class="risk-high"><td>Decisão de org atrasa o início</td><td><span class="tag tag-pending">Alta</span></td><td>Definir deadline na primeira semana. Bloqueia todas as fases seguintes.</td></tr>
+          <tr class="risk-medium"><td>Endpoints Digibee para GU3, KP5, Pré-Inc não existem</td><td><span class="tag tag-confirm">Média</span></td><td>Mapeamento imediato com Tecnologia MV. Priorizar GU3 e KP5 (core da jornada).</td></tr>
+          <tr class="risk-medium"><td>IARA não aprova dados transacionais no Agent no piloto</td><td><span class="tag tag-confirm">Média</span></td><td>Piloto roda sem Service Assistant; funcionalidade adicionada numa segunda onda.</td></tr>
+          <tr class="risk-medium"><td>Critérios de PeC não documentados</td><td><span class="tag tag-confirm">Média</span></td><td>Levantar em workshop com Vinícius antes da Fase 3.</td></tr>
+          <tr class="risk-low"><td>ID Q3 não está no payload do caso atual</td><td><span class="tag tag-done">Baixa</span></td><td>Avaliar enriquecimento no orquestrador BP4 (campo já democratizado).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:20px">Premissas assumidas</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2.2">
+      <li>N1 e BP4 continuam operando como hoje (sem mudança no fluxo de entrada)</li>
+      <li>A org <code>00DHZ0000089DOG2A2</code> tem Service Cloud habilitado</li>
+      <li>O piloto roda exclusivamente na jornada de passos de cartão de crédito</li>
+      <li>Os 10–15 operadores do piloto tratam <em>apenas</em> casos MV durante o período</li>
+    </ul>
+  </section>
+
+  <!-- ── 12. DECISÕES ── -->
+  <section id="decisoes">
+    <div class="section-header">
+      <div class="section-number">12</div>
+      <h2>Decisões Pendentes para Aprovação</h2>
+    </div>
+    <div class="callout callout-warning">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-text">
+        <strong>Todas as decisões abaixo precisam ser tomadas antes do início da Fase 0.</strong>
+        Sem elas, o cronograma não começa.
+      </div>
+    </div>
+    <div class="decision-grid" style="margin-top:16px">
+      <div class="decision-card">
+        <div class="decision-num">Decisão 1 — Org</div>
+        <p>Estender a org atual de Cartões (<code>00DHZ0000089DOG2A2</code>) ou criar uma org dedicada ao MV? A decisão impacta governança, perfis e custos.</p>
+      </div>
+      <div class="decision-card">
+        <div class="decision-num">Decisão 2 — Licenças</div>
+        <p>Confirmar disponibilidade e custo de licenças Agentforce Service Agent para os operadores N2 do piloto.</p>
+      </div>
+      <div class="decision-card">
+        <div class="decision-num">Decisão 3 — Governança de IA (IARA)</div>
+        <p>O Service Assistant pode consultar dados transacionais de passos e benefícios (KP5, GU3) no piloto? Requer aprovação do time de IA do Itaú.</p>
+      </div>
+      <div class="decision-card">
+        <div class="decision-num">Decisão 4 — Operadores do piloto</div>
+        <p>Quais analistas do GAC Clientes participam? Requer autorização da operação terceirizada (Salvador/João Pessoa)?</p>
+      </div>
+      <div class="decision-card">
+        <div class="decision-num">Decisão 5 — Capacidade de desenvolvimento</div>
+        <p>Os dois LWCs e as integrações Apex serão desenvolvidos pelo time interno Itaú (low-code) ou com apoio de consultoria Salesforce?</p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding:20px;background:var(--navy);border-radius:10px;text-align:center">
+      <div style="color:rgba(255,255,255,0.7);font-size:12px;margin-bottom:6px">PROPOSTA DE DECISÃO</div>
+      <div style="color:white;font-size:16px;font-weight:700;line-height:1.5">
+        Alinhar a jornada com Operações e Tecnologia<br>
+        e testar a resolução completa com um grupo do N2.
+      </div>
+      <div style="color:var(--orange);font-size:12px;margin-top:8px">Visioning Deck — Salesforce · Setembro 2026</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Highlight active nav item on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'white' : 'rgba(255,255,255,0.7)';
+      a.style.borderBottomColor = a.getAttribute('href') === '#' + current
+        ? 'var(--orange)' : 'transparent';
+    });
+  }, { passive: true });
+</script>
+
+</body>
+</html>
