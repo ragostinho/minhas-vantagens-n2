@@ -625,6 +625,8 @@
     <a href="#timeline">10. Cronograma</a>
     <a href="#riscos">11. Riscos</a>
     <a href="#decisoes">12. Decisões</a>
+    <a href="#cora">13. CORA</a>
+    <a href="#arvore">14. Árvore BP4</a>
   </nav>
 </header>
 
@@ -1236,6 +1238,149 @@
         e testar a resolução completa com um grupo do N2.
       </div>
       <div style="color:var(--orange);font-size:12px;margin-top:8px">Visioning Deck — Salesforce · Setembro 2026</div>
+    </div>
+  </section>
+
+  <!-- ── 13. CORA ── -->
+  <section id="cora">
+    <div class="section-header">
+      <div class="section-number">13</div>
+      <h2>CORA — Arquitetura e Status Atual</h2>
+    </div>
+    <p style="margin-bottom:20px;color:var(--text-secondary)">Fonte: <em>Projeto Cora - Desenho de arquitetura.pptx</em> — compartilhado por Vinícius (Operações MV), setembro 2026.</p>
+
+    <h3>Impacto projetado</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:28px">
+      <div style="background:var(--orange-light);border:1px solid #FDDBB0;border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:800;color:var(--orange)">2min → 5s</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Tempo por ocorrência</div>
+      </div>
+      <div style="background:var(--green-light);border:1px solid #A5D6A7;border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:800;color:var(--green)">100h → 0h</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Esforço manual/mês</div>
+      </div>
+      <div style="background:var(--blue-light);border:1px solid #B3C4E8;border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:800;color:var(--navy-mid)">89% → 99%</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Assertividade</div>
+      </div>
+      <div style="background:var(--green-light);border:1px solid #A5D6A7;border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:800;color:var(--green)">70% → 100%</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Taxa de automação</div>
+      </div>
+      <div style="background:var(--orange-light);border:1px solid #FDDBB0;border-radius:10px;padding:16px;text-align:center">
+        <div style="font-size:22px;font-weight:800;color:var(--orange)">720h+</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Redução anual de esforço</div>
+      </div>
+    </div>
+
+    <h3>Fluxo CORA (modelo atual de 3 etapas)</h3>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--gray-light);border-radius:8px;padding:14px">
+        <div style="min-width:32px;height:32px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">1</div>
+        <div><strong>Dado recebido?</strong> — Verifica se o evento chegou do sistema de origem. Se não → reprocessamento pendente.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--gray-light);border-radius:8px;padding:14px">
+        <div style="min-width:32px;height:32px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">2</div>
+        <div><strong>Passo devido?</strong> — Valida se o passo era devido ao cliente. Se não → encaminha à <strong>Central N1</strong>. Se sim → encaminha à <strong>Monitoria Pré-incidente</strong>.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--orange-light);border:1px solid #FDDBB0;border-radius:8px;padding:14px">
+        <div style="min-width:32px;height:32px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">E1</div>
+        <div><strong>ETAPA 1 — Painel OFM + Alertas</strong>: Detecção de padrões sistêmicos. Geração de alertas e abertura de pré-incidentes quando o volume indica falha estrutural.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--orange-light);border:1px solid #FDDBB0;border-radius:8px;padding:14px">
+        <div style="min-width:32px;height:32px;border-radius:50%;background:var(--orange);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">E2</div>
+        <div><strong>ETAPA 2 — Aplica paliativo / Responde ocorrência</strong>: Ação corretiva automática ou resposta padronizada à ocorrência individual.</div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:12px;background:var(--green-light);border:1px solid #A5D6A7;border-radius:8px;padding:14px">
+        <div style="min-width:32px;height:32px;border-radius:50%;background:var(--green);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">E3</div>
+        <div><strong>ETAPA 3 — CLASSIFICAÇÃO → TRATAMENTO → ENCERRAMENTO</strong>: Pipeline completo de resolução. Casos que chegam aqui são os que não foram resolvidos nas etapas anteriores.</div>
+      </div>
+    </div>
+
+    <h3>Exemplos de tempo por tipo de ocorrência</h3>
+    <table>
+      <thead><tr><th>Tipo de ocorrência</th><th>Tempo por ocorrência</th><th>Esforço mensal estimado</th></tr></thead>
+      <tbody>
+        <tr><td>Tarifas</td><td>7 min</td><td>~8h/mês</td></tr>
+        <tr><td>Salário / INSS</td><td>14 min</td><td>~12h/mês</td></tr>
+        <tr><td>Encerramento (all)</td><td>20 min (total batch)</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning" style="margin-top:20px">
+      <strong>CORA Analyzer (em desenvolvimento)</strong> — Segunda engine da triagem D+1 (Cora → KP5 → Pré-Inc). Prevista para Q1 2027. Atualmente em ~20% de conclusão (fase de categorização funcionando; fase de tratamento/encerramento automático em desenvolvimento). O piloto do Salesforce pode iniciar sem ela, mas o auto-encerramento D+1 fica disponível somente após sua entrega.
+    </div>
+  </section>
+
+  <!-- ── 14. ÁRVORE BP4 ── -->
+  <section id="arvore">
+    <div class="section-header">
+      <div class="section-number">14</div>
+      <h2>Árvore de Assuntos MV — Parâmetros BP4</h2>
+    </div>
+    <p style="margin-bottom:20px;color:var(--text-secondary)">Fonte: <em>Relatório BP4 - Árvore de assuntos MV.xlsx</em> — compartilhado por Vinícius (Operações MV), setembro 2026. 21 linhas de assunto registradas, todas com SLA de 7 D.U., exceto Promoção (3 D.U.).</p>
+
+    <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+      <div style="background:var(--orange-light);border:1px solid #FDDBB0;border-radius:8px;padding:12px 20px;text-align:center">
+        <div style="font-size:24px;font-weight:800;color:var(--orange)">21</div>
+        <div style="font-size:11px;color:var(--text-secondary)">linhas de assunto</div>
+      </div>
+      <div style="background:var(--blue-light);border:1px solid #B3C4E8;border-radius:8px;padding:12px 20px;text-align:center">
+        <div style="font-size:24px;font-weight:800;color:var(--navy-mid)">7 D.U.</div>
+        <div style="font-size:11px;color:var(--text-secondary)">SLA padrão</div>
+      </div>
+      <div style="background:var(--green-light);border:1px solid #A5D6A7;border-radius:8px;padding:12px 20px;text-align:center">
+        <div style="font-size:24px;font-weight:800;color:var(--green)">7</div>
+        <div style="font-size:11px;color:var(--text-secondary)">linhas com N3 (GACC)</div>
+      </div>
+    </div>
+
+    <h3>Linhas com triagem N2 → N3 (Contestação de passos)</h3>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Estas 7 linhas são roteadas pelo N2 via <code>FJ1-Contas-GACC - Engenharia</code> e podem escalar para N3 (<code>FJ1-Contas-MV-Engenharia</code>). São as que acionam a triagem D+1 CORA → KP5 → Pré-Inc no Salesforce.</p>
+    <table>
+      <thead><tr><th>#</th><th>Assunto</th><th>SLA</th><th>Fila N2</th><th>Fila N3</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Contestação de passos Média de gastos Cartão</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>4</td><td>Contestação de passos Demais produtos</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>9</td><td>Contestação de passos Salário ou INSS</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>11</td><td>Contestação de passos Seguros</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>13</td><td>Contesta a contabilização de passos de produto</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>18</td><td>Contestação de passos Investimento</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>20</td><td>Contestação de passos Conta PJ</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Linhas N2 direto — Benefícios e Programa</h3>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Roteadas para <code>FJ1-Contas-MV-Engenharia</code>. Sem escalada N3 programática. Fora do escopo do piloto fase 1 (exceto funcionalidade geral).</p>
+    <table>
+      <thead><tr><th>#</th><th>Assunto</th><th>SLA</th><th>Categoria</th></tr></thead>
+      <tbody>
+        <tr><td>2</td><td>Benefício Dificuldade de utilização Voucher</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+        <tr><td>3</td><td>Contesta Benefício de Tarifa de Conta PJ</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+        <tr><td>5</td><td>Adesão ao Minhas Vantagens</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
+        <tr><td>7</td><td>Benefício Isenção de Tarifa</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+        <tr><td>8</td><td>Benefício Dificuldade de resgate Voucher</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+        <tr><td>10</td><td>Benefício Demais benefícios</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+        <tr><td>12</td><td>Downgrade ou Upgrade</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
+        <tr><td>14</td><td>Contesta funcionalidade do programa</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
+        <tr><td>16</td><td>Contesta benefício não concedido</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+        <tr><td>17</td><td>Contesta as condições do produto</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
+        <tr><td>19</td><td>Benefício Mais Pontos</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Linhas Informacionais / Outras</h3>
+    <table>
+      <thead><tr><th>#</th><th>Assunto</th><th>SLA</th><th>Observação</th></tr></thead>
+      <tbody>
+        <tr><td>6</td><td>Informações sobre produto ou serviço</td><td>7 D.U.</td><td>Características gerais</td></tr>
+        <tr><td>15</td><td>Informações do produto pool orquestrador</td><td>7 D.U.</td><td>Características gerais</td></tr>
+        <tr><td>21</td><td>Promoção Seleção de Prêmios</td><td><strong style="color:var(--orange)">3 D.U.</strong></td><td>SLA diferenciado — prioridade</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info" style="margin-top:20px">
+      <strong>Impacto no Salesforce</strong> — Estas 21 linhas serão a base para: (1) campo <code>Subject</code> / picklist customizada no objeto Case; (2) roteamento Omni-Channel por tipo de assunto; (3) templates de resposta por macro-assunto no Knowledge; (4) critério de elegibilidade da triagem D+1 (apenas linhas de Contestação de passos disparam KP5/Pré-Inc).
     </div>
   </section>
 
