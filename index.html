@@ -740,7 +740,7 @@
       <span class="callout-icon">🎯</span>
       <div class="callout-text">
         <strong>Passos não contabilizados — Cartão de Crédito</strong>
-        Representa ~72% do volume N2. É a jornada com fluxo mais completo mapeado e mockup validado no visioning deck.
+        Representa ~72% do volume N2. Cobre as linhas BP4 <strong>#1</strong> (Média de gastos Cartão) e <strong>#13</strong> (Contesta a contabilização de passos de produto) — ambas com SLA 7 D.U. e roteamento GACC→N3. Fluxo completo mapeado e mockup validado no visioning deck.
       </div>
     </div>
     <div style="margin-top:16px;display:flex;flex-direction:column;gap:12px">
@@ -845,7 +845,7 @@
       <table>
         <thead><tr><th>Item</th><th>Motivo do diferimento</th></tr></thead>
         <tbody>
-          <tr><td>Triagem automática D+1 (Cora → KP5 → Pré-Inc)</td><td>Depende da CORA Analyzer ainda em desenvolvimento</td></tr>
+          <tr><td>Triagem automática D+1 (Cora → KP5 → Pré-Inc)</td><td>CORA Analyzer em desenvolvimento (~20% concluído). Previsão: Q1 2027 — alinhada ao MVP. Ver <a href="#cora" style="color:var(--orange)">Seção 13</a>.</td></tr>
           <tr><td>Agentforce Coworker (supervisor)</td><td>Disponibilidade de licença e validação IARA a confirmar</td></tr>
           <tr><td>Jornada Benefícios não bancários (XS4/vouchers)</td><td>Segunda prioridade; requer endpoints Digibee adicionais</td></tr>
           <tr><td>Jornada Bancário (regras de segmento, cobranças)</td><td>Terceira prioridade</td></tr>
@@ -953,7 +953,7 @@
       <table>
         <thead><tr><th>Objeto</th><th>Tipo</th><th>Finalidade</th></tr></thead>
         <tbody>
-          <tr><td><code>Case</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Ocorrência principal. Campo custom: <code>ID_Q3__c</code></td></tr>
+          <tr><td><code>Case</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Ocorrência principal. Campos custom: <code>ID_Q3__c</code> (chave integradora) + <code>Assunto_MV__c</code> (picklist com as 21 linhas BP4 — ver <a href="#arvore" style="color:var(--navy)">Seção 14</a>)</td></tr>
           <tr><td><code>Solicitacao_PeC__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro do pedido de Passo em Confiança (PEC-XXXXX)</td></tr>
           <tr><td><code>Acompanhamento__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Follow-up criado pelo supervisor (AC-MV-XXXX)</td></tr>
           <tr><td><code>Comunicacao_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro de envio ao cliente (COM-XXXXX)</td></tr>
@@ -1041,7 +1041,7 @@
           <tr><td>Aprovação IARA para Service Assistant com dados transacionais</td><td>Time de IA do Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
           <tr><td>Endpoints Digibee: GU3, KP5, Pré-Inc, Mecânica de Passos, BP4</td><td>Tecnologia MV / Digibee</td><td><span class="tag tag-confirm">A mapear</span></td></tr>
           <tr><td>Chave ID Q3 disponível no payload do caso (orquestrador BP4)</td><td>Tecnologia N1 / BP4</td><td><span class="tag tag-confirm">A validar</span></td></tr>
-          <tr><td>Árvore de assuntos e documentação da CORA</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-done">Prometido na reunião</span></td></tr>
+          <tr><td>Árvore de assuntos BP4 (21 linhas) e documentação da CORA</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-done">✅ Recebido — Ver Seções <a href="#cora" style="color:var(--green)">13</a> e <a href="#arvore" style="color:var(--green)">14</a></span></td></tr>
           <tr><td>Playbooks e roteiros por macro-assunto (base do Knowledge)</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
           <tr><td>Critérios de elegibilidade para PeC no piloto</td><td>Vinícius + Coordenação MV</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
         </tbody>
