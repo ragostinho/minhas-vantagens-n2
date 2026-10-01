@@ -1335,47 +1335,31 @@
       </div>
     </div>
 
-    <h3>Linhas com triagem N2 → N3 (Contestação de passos)</h3>
-    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Estas 7 linhas são roteadas pelo N2 via <code>FJ1-Contas-GACC - Engenharia</code> e podem escalar para N3 (<code>FJ1-Contas-MV-Engenharia</code>). São as que acionam a triagem D+1 CORA → KP5 → Pré-Inc no Salesforce.</p>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Ordem original do BP4. Linhas marcadas com <span class="tag tag-dev" style="font-size:11px">GACC → N3</span> acionam a triagem D+1 (CORA → KP5 → Pré-Inc) no Salesforce. Demais linhas são roteadas direto para <code>FJ1-Contas-MV-Engenharia</code>.</p>
     <table>
-      <thead><tr><th>#</th><th>Assunto</th><th>SLA</th><th>Fila N2</th><th>Fila N3</th></tr></thead>
+      <thead><tr><th>#</th><th>Linha de assunto (caminho completo: Contas / Minhas Vantagens / …)</th><th>SLA</th><th>N2</th><th>N3</th></tr></thead>
       <tbody>
-        <tr><td>1</td><td>Contestação de passos Média de gastos Cartão</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-        <tr><td>4</td><td>Contestação de passos Demais produtos</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-        <tr><td>9</td><td>Contestação de passos Salário ou INSS</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-        <tr><td>11</td><td>Contestação de passos Seguros</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-        <tr><td>13</td><td>Contesta a contabilização de passos de produto</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-        <tr><td>18</td><td>Contestação de passos Investimento</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-        <tr><td>20</td><td>Contestação de passos Conta PJ</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
-      </tbody>
-    </table>
-
-    <h3>Linhas N2 direto — Benefícios e Programa</h3>
-    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Roteadas para <code>FJ1-Contas-MV-Engenharia</code>. Sem escalada N3 programática. Fora do escopo do piloto fase 1 (exceto funcionalidade geral).</p>
-    <table>
-      <thead><tr><th>#</th><th>Assunto</th><th>SLA</th><th>Categoria</th></tr></thead>
-      <tbody>
-        <tr><td>2</td><td>Benefício Dificuldade de utilização Voucher</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-        <tr><td>3</td><td>Contesta Benefício de Tarifa de Conta PJ</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-        <tr><td>5</td><td>Adesão ao Minhas Vantagens</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
-        <tr><td>7</td><td>Benefício Isenção de Tarifa</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-        <tr><td>8</td><td>Benefício Dificuldade de resgate Voucher</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-        <tr><td>10</td><td>Benefício Demais benefícios</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-        <tr><td>12</td><td>Downgrade ou Upgrade</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
-        <tr><td>14</td><td>Contesta funcionalidade do programa</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
-        <tr><td>16</td><td>Contesta benefício não concedido</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-        <tr><td>17</td><td>Contesta as condições do produto</td><td>7 D.U.</td><td><span class="tag tag-config">Programa</span></td></tr>
-        <tr><td>19</td><td>Benefício Mais Pontos</td><td>7 D.U.</td><td><span class="tag tag-native">Benefício</span></td></tr>
-      </tbody>
-    </table>
-
-    <h3>Linhas Informacionais / Outras</h3>
-    <table>
-      <thead><tr><th>#</th><th>Assunto</th><th>SLA</th><th>Observação</th></tr></thead>
-      <tbody>
-        <tr><td>6</td><td>Informações sobre produto ou serviço</td><td>7 D.U.</td><td>Características gerais</td></tr>
-        <tr><td>15</td><td>Informações do produto pool orquestrador</td><td>7 D.U.</td><td>Características gerais</td></tr>
-        <tr><td>21</td><td>Promoção Seleção de Prêmios</td><td><strong style="color:var(--orange)">3 D.U.</strong></td><td>SLA diferenciado — prioridade</td></tr>
+        <tr><td>1</td><td>Reclamação / Contestação de passos Média de gastos Cartão</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>2</td><td>Reclamação / Benefício Dificuldade de utilização Voucher</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>3</td><td>Reclamação / Contesta Benefício de Tarifa de Conta PJ</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>4</td><td>Reclamação / Contestação de passos Demais produtos</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>5</td><td>Reclamação / Adesão ao Minhas Vantagens</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>6</td><td>Características gerais / Informações sobre produto ou serviço</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>7</td><td>Reclamação / Benefício Isenção de Tarifa</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>8</td><td>Reclamação / Benefício Dificuldade de resgate Voucher</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>9</td><td>Reclamação / Contestação de passos Salário ou INSS</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>10</td><td>Reclamação / Benefício Demais benefícios</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>11</td><td>Reclamação / Contestação de passos Seguros</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>12</td><td>Reclamação / Downgrade ou Upgrade</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>13</td><td>Reclamação / Contesta a contabilização de passos de produto</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>14</td><td>Reclamação / Contesta funcionalidade do programa</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>15</td><td>Características gerais / Informações do produto pool orquestrador</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>16</td><td>Reclamação / Contesta benefício não concedido</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>17</td><td>Reclamação / Contesta as condições do produto</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>18</td><td>Reclamação / Contestação de passos Investimento</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>19</td><td>Reclamação / Benefício Mais Pontos</td><td>7 D.U.</td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
+        <tr><td>20</td><td>Reclamação / Contestação de passos Conta PJ</td><td>7 D.U.</td><td><span class="tag tag-dev">GACC</span></td><td>MV-Eng</td></tr>
+        <tr><td>21</td><td>Características gerais / Promoção Seleção de Prêmios</td><td><strong style="color:var(--orange)">3 D.U.</strong></td><td><span class="tag tag-native">MV-Eng</span></td><td>N/A</td></tr>
       </tbody>
     </table>
 
