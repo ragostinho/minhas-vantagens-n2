@@ -617,20 +617,21 @@
     <a href="#contexto">2. Contexto</a>
     <a href="#escopo">3. Escopo</a>
     <a href="#solucao">4. Solução SF</a>
-    <a href="#dados">5. Dados</a>
-    <a href="#perfis">6. Perfis</a>
-    <a href="#metricas">7. Métricas</a>
+    <a href="#metricas">5. Métricas</a>
+    <a href="#timeline">6. Cronograma</a>
+    <a href="#decisoes">7. Decisões</a>
     <a href="#prereqs">8. Pré-requisitos</a>
     <a href="#responsabilidades">9. SF vs Itaú</a>
-    <a href="#timeline">10. Cronograma</a>
-    <a href="#riscos">11. Riscos</a>
-    <a href="#decisoes">12. Decisões</a>
+    <a href="#riscos">10. Riscos</a>
+    <a href="#dados">11. Dados</a>
+    <a href="#perfis">12. Perfis</a>
     <a href="#cora">13. CORA</a>
     <a href="#arvore">14. Árvore BP4</a>
   </nav>
 </header>
 
 <div class="page">
+
 
   <!-- ── 1. OBJETIVO ── -->
   <section id="objetivo">
@@ -936,68 +937,10 @@
     </div>
   </section>
 
-  <!-- ── 5. DADOS ── -->
-  <section id="dados">
-    <div class="section-header">
-      <div class="section-number">5</div>
-      <h2>Modelo de Dados — Objetos do Piloto</h2>
-    </div>
-    <div class="callout callout-info">
-      <span class="callout-icon">🔑</span>
-      <div class="callout-text">
-        <strong>Chave de integração: <code>ID_Q3__c</code></strong>
-        Campo custom no objeto Case que conecta o registro SF a todos os sistemas de origem (KP5, GU3, 360i, XS4). Deve ser enviado no payload de criação do caso pelo orquestrador BP4.
-      </div>
-    </div>
-    <div class="table-wrap" style="margin-top:16px">
-      <table>
-        <thead><tr><th>Objeto</th><th>Tipo</th><th>Finalidade</th></tr></thead>
-        <tbody>
-          <tr><td><code>Case</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Ocorrência principal. Campos custom: <code>ID_Q3__c</code> (chave integradora) + <code>Assunto_MV__c</code> (picklist com as 21 linhas BP4 — ver <a href="#arvore" style="color:var(--navy)">Seção 14</a>)</td></tr>
-          <tr><td><code>Solicitacao_PeC__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro do pedido de Passo em Confiança (PEC-XXXXX)</td></tr>
-          <tr><td><code>Acompanhamento__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Follow-up criado pelo supervisor (AC-MV-XXXX)</td></tr>
-          <tr><td><code>Comunicacao_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro de envio ao cliente (COM-XXXXX)</td></tr>
-          <tr><td><code>Incidente_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Vínculo com incidente ServiceNow</td></tr>
-          <tr><td><code>Knowledge</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Artigos por macro-assunto para o Service Assistant</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ── 6. PERFIS ── -->
-  <section id="perfis">
-    <div class="section-header">
-      <div class="section-number">6</div>
-      <h2>Perfis e Acessos no Piloto</h2>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Perfil</th><th>Acesso</th><th>Ações disponíveis</th></tr></thead>
-        <tbody>
-          <tr>
-            <td><strong>Operador N2</strong></td>
-            <td>Lista de casos MV, registro do caso, aba Diagnóstico MV, Service Assistant</td>
-            <td>Editar caso, Solicitar PeC, fechar caso, preparar retorno ao cliente</td>
-          </tr>
-          <tr>
-            <td><strong>Supervisor</strong></td>
-            <td>Tudo do Operador + visão de fila do time</td>
-            <td>Aprovar/rejeitar PeC, criar Acompanhamento</td>
-          </tr>
-          <tr>
-            <td><strong>Aprovador (Coord.)</strong></td>
-            <td>Registro Solicitação PeC</td>
-            <td>Aprovar ou rejeitar com comentário registrado</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
   <!-- ── 7. MÉTRICAS ── -->
   <section id="metricas">
     <div class="section-header">
-      <div class="section-number">7</div>
+      <div class="section-number">5</div>
       <h2>Métricas de Sucesso do Piloto</h2>
     </div>
     <h3>Métricas operacionais (primeiras 4 semanas do piloto)</h3>
@@ -1026,70 +969,10 @@
     </div>
   </section>
 
-  <!-- ── 8. PRÉ-REQUISITOS ── -->
-  <section id="prereqs">
-    <div class="section-header">
-      <div class="section-number">8</div>
-      <h2>Pré-requisitos e Dependências Críticas</h2>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Dependência</th><th>Responsável</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Estratégia de org (<code>00DHZ0000089DOG2A2</code>): estender Cartões ou criar org dedicada MV</td><td>Comunidade Salesforce Itaú</td><td><span class="tag tag-pending">⚠️ Decisão urgente</span></td></tr>
-          <tr><td>Licenças Agentforce Service Agent para N2</td><td>Salesforce / Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
-          <tr><td>Aprovação IARA para Service Assistant com dados transacionais</td><td>Time de IA do Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
-          <tr><td>Endpoints Digibee: GU3, KP5, Pré-Inc, Mecânica de Passos, BP4</td><td>Tecnologia MV / Digibee</td><td><span class="tag tag-confirm">A mapear</span></td></tr>
-          <tr><td>Chave ID Q3 disponível no payload do caso (orquestrador BP4)</td><td>Tecnologia N1 / BP4</td><td><span class="tag tag-confirm">A validar</span></td></tr>
-          <tr><td>Árvore de assuntos BP4 (21 linhas) e documentação da CORA</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-done">✅ Recebido — Ver Seções <a href="#cora" style="color:var(--green)">13</a> e <a href="#arvore" style="color:var(--green)">14</a></span></td></tr>
-          <tr><td>Playbooks e roteiros por macro-assunto (base do Knowledge)</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
-          <tr><td>Critérios de elegibilidade para PeC no piloto</td><td>Vinícius + Coordenação MV</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- ── 9. SF vs ITAU ── -->
-  <section id="responsabilidades">
-    <div class="section-header">
-      <div class="section-number">9</div>
-      <h2>Salesforce entrega vs. Itaú precisa prover</h2>
-    </div>
-    <div class="split-grid">
-      <div class="split-card split-sf">
-        <h3 style="color:#1565C0">🔵 Salesforce entrega</h3>
-        <ul>
-          <li>Infraestrutura completa de Case Management (Console, List View, Feed, Relacionamentos)</li>
-          <li>Motor de aprovação (Approval Process) com histórico rastreável</li>
-          <li>Framework de IA (Agentforce) para Service Assistant</li>
-          <li>Knowledge Base com busca semântica para o Agent</li>
-          <li>Screen Flow para o wizard de PeC</li>
-          <li>Email Templates e registro de comunicação</li>
-        </ul>
-      </div>
-      <div class="split-card split-itau">
-        <h3 style="color:var(--orange)">🟠 Itaú precisa prover</h3>
-        <div class="table-wrap" style="margin:0">
-          <table style="margin:0">
-            <thead><tr><th style="background:var(--orange)">Item</th><th style="background:var(--orange)">Quem</th></tr></thead>
-            <tbody>
-              <tr><td>Endpoints Digibee por sistema de origem</td><td>Tecnologia / Digibee</td></tr>
-              <tr><td>ID Q3 no payload de criação do caso</td><td>N1 / BP4 / Orquestrador</td></tr>
-              <tr><td>Conteúdo dos artigos Knowledge (playbooks)</td><td>Operações MV (Vinícius)</td></tr>
-              <tr><td>Critérios de elegibilidade para PeC</td><td>Operações MV + Coord.</td></tr>
-              <tr><td>Aprovação IARA para dados transacionais no Agent</td><td>Time de IA do Itaú</td></tr>
-              <tr><td>Ambiente de homologação (KP5, GU3, etc.)</td><td>Tecnologia MV</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ── 10. TIMELINE ── -->
   <section id="timeline">
     <div class="section-header">
-      <div class="section-number">10</div>
+      <div class="section-number">6</div>
       <h2>Cronograma Sugerido</h2>
     </div>
     <div class="timeline">
@@ -1167,38 +1050,10 @@
     </div>
   </section>
 
-  <!-- ── 11. RISCOS ── -->
-  <section id="riscos">
-    <div class="section-header">
-      <div class="section-number">11</div>
-      <h2>Riscos e Premissas</h2>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Risco</th><th>Probabilidade</th><th>Mitigação</th></tr></thead>
-        <tbody>
-          <tr class="risk-high"><td>Decisão de org atrasa o início</td><td><span class="tag tag-pending">Alta</span></td><td>Definir deadline na primeira semana. Bloqueia todas as fases seguintes.</td></tr>
-          <tr class="risk-medium"><td>Endpoints Digibee para GU3, KP5, Pré-Inc não existem</td><td><span class="tag tag-confirm">Média</span></td><td>Mapeamento imediato com Tecnologia MV. Priorizar GU3 e KP5 (core da jornada).</td></tr>
-          <tr class="risk-medium"><td>IARA não aprova dados transacionais no Agent no piloto</td><td><span class="tag tag-confirm">Média</span></td><td>Piloto roda sem Service Assistant; funcionalidade adicionada numa segunda onda.</td></tr>
-          <tr class="risk-medium"><td>Critérios de PeC não documentados</td><td><span class="tag tag-confirm">Média</span></td><td>Levantar em workshop com Vinícius antes da Fase 3.</td></tr>
-          <tr class="risk-low"><td>ID Q3 não está no payload do caso atual</td><td><span class="tag tag-done">Baixa</span></td><td>Avaliar enriquecimento no orquestrador BP4 (campo já democratizado).</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 style="margin-top:20px">Premissas assumidas</h3>
-    <ul style="padding-left:20px;font-size:13px;line-height:2.2">
-      <li>N1 e BP4 continuam operando como hoje (sem mudança no fluxo de entrada)</li>
-      <li>A org <code>00DHZ0000089DOG2A2</code> tem Service Cloud habilitado</li>
-      <li>O piloto roda exclusivamente na jornada de passos de cartão de crédito</li>
-      <li>Os 10–15 operadores do piloto tratam <em>apenas</em> casos MV durante o período</li>
-    </ul>
-  </section>
-
   <!-- ── 12. DECISÕES ── -->
   <section id="decisoes">
     <div class="section-header">
-      <div class="section-number">12</div>
+      <div class="section-number">7</div>
       <h2>Decisões Pendentes para Aprovação</h2>
     </div>
     <div class="callout callout-warning">
@@ -1238,6 +1093,152 @@
         e testar a resolução completa com um grupo do N2.
       </div>
       <div style="color:var(--orange);font-size:12px;margin-top:8px">Visioning Deck — Salesforce · Setembro 2026</div>
+    </div>
+  </section>
+
+  <!-- ── 8. PRÉ-REQUISITOS ── -->
+  <section id="prereqs">
+    <div class="section-header">
+      <div class="section-number">8</div>
+      <h2>Pré-requisitos e Dependências Críticas</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Dependência</th><th>Responsável</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Estratégia de org (<code>00DHZ0000089DOG2A2</code>): estender Cartões ou criar org dedicada MV</td><td>Comunidade Salesforce Itaú</td><td><span class="tag tag-pending">⚠️ Decisão urgente</span></td></tr>
+          <tr><td>Licenças Agentforce Service Agent para N2</td><td>Salesforce / Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
+          <tr><td>Aprovação IARA para Service Assistant com dados transacionais</td><td>Time de IA do Itaú</td><td><span class="tag tag-confirm">A confirmar</span></td></tr>
+          <tr><td>Endpoints Digibee: GU3, KP5, Pré-Inc, Mecânica de Passos, BP4</td><td>Tecnologia MV / Digibee</td><td><span class="tag tag-confirm">A mapear</span></td></tr>
+          <tr><td>Chave ID Q3 disponível no payload do caso (orquestrador BP4)</td><td>Tecnologia N1 / BP4</td><td><span class="tag tag-confirm">A validar</span></td></tr>
+          <tr><td>Árvore de assuntos BP4 (21 linhas) e documentação da CORA</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-done">✅ Recebido — Ver Seções <a href="#cora" style="color:var(--green)">13</a> e <a href="#arvore" style="color:var(--green)">14</a></span></td></tr>
+          <tr><td>Playbooks e roteiros por macro-assunto (base do Knowledge)</td><td>Vinícius (Operações MV)</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
+          <tr><td>Critérios de elegibilidade para PeC no piloto</td><td>Vinícius + Coordenação MV</td><td><span class="tag tag-confirm">Necessário</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 9. SF vs ITAU ── -->
+  <section id="responsabilidades">
+    <div class="section-header">
+      <div class="section-number">9</div>
+      <h2>Salesforce entrega vs. Itaú precisa prover</h2>
+    </div>
+    <div class="split-grid">
+      <div class="split-card split-sf">
+        <h3 style="color:#1565C0">🔵 Salesforce entrega</h3>
+        <ul>
+          <li>Infraestrutura completa de Case Management (Console, List View, Feed, Relacionamentos)</li>
+          <li>Motor de aprovação (Approval Process) com histórico rastreável</li>
+          <li>Framework de IA (Agentforce) para Service Assistant</li>
+          <li>Knowledge Base com busca semântica para o Agent</li>
+          <li>Screen Flow para o wizard de PeC</li>
+          <li>Email Templates e registro de comunicação</li>
+        </ul>
+      </div>
+      <div class="split-card split-itau">
+        <h3 style="color:var(--orange)">🟠 Itaú precisa prover</h3>
+        <div class="table-wrap" style="margin:0">
+          <table style="margin:0">
+            <thead><tr><th style="background:var(--orange)">Item</th><th style="background:var(--orange)">Quem</th></tr></thead>
+            <tbody>
+              <tr><td>Endpoints Digibee por sistema de origem</td><td>Tecnologia / Digibee</td></tr>
+              <tr><td>ID Q3 no payload de criação do caso</td><td>N1 / BP4 / Orquestrador</td></tr>
+              <tr><td>Conteúdo dos artigos Knowledge (playbooks)</td><td>Operações MV (Vinícius)</td></tr>
+              <tr><td>Critérios de elegibilidade para PeC</td><td>Operações MV + Coord.</td></tr>
+              <tr><td>Aprovação IARA para dados transacionais no Agent</td><td>Time de IA do Itaú</td></tr>
+              <tr><td>Ambiente de homologação (KP5, GU3, etc.)</td><td>Tecnologia MV</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 11. RISCOS ── -->
+  <section id="riscos">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <h2>Riscos e Premissas</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Risco</th><th>Probabilidade</th><th>Mitigação</th></tr></thead>
+        <tbody>
+          <tr class="risk-high"><td>Decisão de org atrasa o início</td><td><span class="tag tag-pending">Alta</span></td><td>Definir deadline na primeira semana. Bloqueia todas as fases seguintes.</td></tr>
+          <tr class="risk-medium"><td>Endpoints Digibee para GU3, KP5, Pré-Inc não existem</td><td><span class="tag tag-confirm">Média</span></td><td>Mapeamento imediato com Tecnologia MV. Priorizar GU3 e KP5 (core da jornada).</td></tr>
+          <tr class="risk-medium"><td>IARA não aprova dados transacionais no Agent no piloto</td><td><span class="tag tag-confirm">Média</span></td><td>Piloto roda sem Service Assistant; funcionalidade adicionada numa segunda onda.</td></tr>
+          <tr class="risk-medium"><td>Critérios de PeC não documentados</td><td><span class="tag tag-confirm">Média</span></td><td>Levantar em workshop com Vinícius antes da Fase 3.</td></tr>
+          <tr class="risk-low"><td>ID Q3 não está no payload do caso atual</td><td><span class="tag tag-done">Baixa</span></td><td>Avaliar enriquecimento no orquestrador BP4 (campo já democratizado).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:20px">Premissas assumidas</h3>
+    <ul style="padding-left:20px;font-size:13px;line-height:2.2">
+      <li>N1 e BP4 continuam operando como hoje (sem mudança no fluxo de entrada)</li>
+      <li>A org <code>00DHZ0000089DOG2A2</code> tem Service Cloud habilitado</li>
+      <li>O piloto roda exclusivamente na jornada de passos de cartão de crédito</li>
+      <li>Os 10–15 operadores do piloto tratam <em>apenas</em> casos MV durante o período</li>
+    </ul>
+  </section>
+
+  <!-- ── 5. DADOS ── -->
+  <section id="dados">
+    <div class="section-header">
+      <div class="section-number">11</div>
+      <h2>Modelo de Dados — Objetos do Piloto</h2>
+    </div>
+    <div class="callout callout-info">
+      <span class="callout-icon">🔑</span>
+      <div class="callout-text">
+        <strong>Chave de integração: <code>ID_Q3__c</code></strong>
+        Campo custom no objeto Case que conecta o registro SF a todos os sistemas de origem (KP5, GU3, 360i, XS4). Deve ser enviado no payload de criação do caso pelo orquestrador BP4.
+      </div>
+    </div>
+    <div class="table-wrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>Objeto</th><th>Tipo</th><th>Finalidade</th></tr></thead>
+        <tbody>
+          <tr><td><code>Case</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Ocorrência principal. Campos custom: <code>ID_Q3__c</code> (chave integradora) + <code>Assunto_MV__c</code> (picklist com as 21 linhas BP4 — ver <a href="#arvore" style="color:var(--navy)">Seção 14</a>)</td></tr>
+          <tr><td><code>Solicitacao_PeC__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro do pedido de Passo em Confiança (PEC-XXXXX)</td></tr>
+          <tr><td><code>Acompanhamento__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Follow-up criado pelo supervisor (AC-MV-XXXX)</td></tr>
+          <tr><td><code>Comunicacao_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Registro de envio ao cliente (COM-XXXXX)</td></tr>
+          <tr><td><code>Incidente_MV__c</code></td><td><span class="tag tag-dev">Custom</span></td><td>Vínculo com incidente ServiceNow</td></tr>
+          <tr><td><code>Knowledge</code></td><td><span class="tag tag-native">Padrão SF</span></td><td>Artigos por macro-assunto para o Service Assistant</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 6. PERFIS ── -->
+  <section id="perfis">
+    <div class="section-header">
+      <div class="section-number">12</div>
+      <h2>Perfis e Acessos no Piloto</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Perfil</th><th>Acesso</th><th>Ações disponíveis</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Operador N2</strong></td>
+            <td>Lista de casos MV, registro do caso, aba Diagnóstico MV, Service Assistant</td>
+            <td>Editar caso, Solicitar PeC, fechar caso, preparar retorno ao cliente</td>
+          </tr>
+          <tr>
+            <td><strong>Supervisor</strong></td>
+            <td>Tudo do Operador + visão de fila do time</td>
+            <td>Aprovar/rejeitar PeC, criar Acompanhamento</td>
+          </tr>
+          <tr>
+            <td><strong>Aprovador (Coord.)</strong></td>
+            <td>Registro Solicitação PeC</td>
+            <td>Aprovar ou rejeitar com comentário registrado</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -1367,7 +1368,6 @@
       <strong>Impacto no Salesforce</strong> — Estas 21 linhas serão a base para: (1) campo <code>Subject</code> / picklist customizada no objeto Case; (2) roteamento Omni-Channel por tipo de assunto; (3) templates de resposta por macro-assunto no Knowledge; (4) critério de elegibilidade da triagem D+1 (apenas linhas de Contestação de passos disparam KP5/Pré-Inc).
     </div>
   </section>
-
 </div>
 
 <script>
